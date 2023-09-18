@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>eRegistrar Student Registration - New Student</title>
+    <style>
+        a.std-lnk-btn {
+            text-decoration:none;color: #000000;border: 1px solid #000000;padding: 0.20em;background-color: #efefef;
+        }
+        input.std-btn {
+            color: #000000;border: 1px solid #000000;padding: 0.35em;background-color: #efefef;
+        }
+    </style>
+</head>
+<body>
+<header th:replace="fragments/header :: header"></header>
+<main>
+    <h1>New Student Form</h1>
+    <div style="border: 1px solid;padding: 1em;">
+        <div>
+            Fields marked with asterisk (*) are required.
+        </div>
+        <form method="post" action="/eregistrar/students/new" th:object="${student}">
+            <fieldset>
+                <div>
+                    <label><span style="font-weight: bold">First Name*</span></label>
+                </div>
+                <div>
+                    <div><span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" style="color:red;"></span></div>
+                    <input name="firstName" type="text" th:value="${student.firstName}" autofocus>
+                </div>
+                <div>
+                    <label><span style="font-weight: bold">Middle Naame</span></label>
+                </div>
+                <div>
+                    <input name="middleName" type="text" th:field="${student.middleName}">
+                </div>
+                <div>
+                    <label><span style="font-weight: bold">Last Name*</span></label>
+                </div>
+                <div>
+                    <div><span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" style="color:red;"></span></div>
+                    <input name="lastName" type="text" th:value="${student.lastName}" autofocus>
+                </div>
+                <div>
+                    <label><span style="font-weight: bold">Student Number*</span></label>
+                </div>
+                <div>
+                    <div><span th:if="${#fields.hasErrors('studentNumber')}" th:errors="*{studentNumber}" style="color:red;"></span></div>
+                    <input name="studentNumber" type="text" th:field="${student.studentNumber}">
+                </div>
+                <div>
+                    <label><span style="font-weight: bold">Enrollment Date*</span></label>
+                </div>
+                <div>
+                    <div><span th:if="${#fields.hasErrors('enrollmentDate')}" th:errors="*{enrollmentDate}" style="color:red;"></span></div>
+                    <input name="enrollmentDate" type="date" th:field="${student.enrollmentDate}">
+                </div>
+                <div>
+                    <label><span style="font-weight: bold">CGPA</span></label>
+                </div>
+                <div>
+                    <input name="cgpa" type="text" th:field="${student.cgpa}">
+                </div>
+                <div>
+                    <label><span style="font-weight: bold">Is International? * </span></label>
+                </div>
+                <div><span th:if="${#fields.hasErrors('isInternational')}" th:errors="*{isInternational}" style="color:red;"></span></div>
+                <select name="isInternational" th:field="${student.isInternational}">
+                    <option th:value="'Yes'" th:text="Yes"></option>
+                    <option th:value="'No'" th:text="No"></option>
+                </select>
+                <div>
+                    <label><span style="font-weight: bold">Gender*</span></label>
+                </div>
+                <div><span th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}" style="color:red;"></span></div>
+                <div>
+                    <input type="radio" th:field="*{gender}" id="male" value="Male">
+                    <label for="male">Male</label>
+                </div>
+                <div>
+                    <input type="radio" th:field="*{gender}" id="female" value="Female">
+                    <label for="female">Female</label>
+                </div>
+                <div>
+                    <input type="radio" th:field="*{gender}" id="other" value="Other">
+                    <label for="other">Other</label>
+                </div>
+                <div>
+                    <label><span style="font-weight: bold">Is FPP Student?</span></label>
+                </div>
+                <input type="checkbox" th:field="*{fpp}" id="isFPP" >
+                <label for="isFPP">
+                    FPP
+                </label>
+
+            </fieldset>
+            <div style="margin-top: 1em;">
+                <a class="std-lnk-btn" href="/eregistrar/students/list">Cancel</a>
+                <input class="std-btn" type="reset" value="Reset">
+                <input class="std-btn" type="submit" value="Add Student">
+            </div>
+        </form>
+    </div>
+</main>
+</body>
+</html>

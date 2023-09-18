@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>eRegistrar Student Registration - Home</title>
+    <style>
+        table {
+            border: 1px solid;
+            border-collapse: collapse;
+        }
+
+        table th, table td {
+            border: 1px solid;
+            padding: 1em;
+        }
+    </style>
+</head>
+<body>
+<header th:replace="fragments/header :: header"></header>
+<main>
+    <form method="get" th:action="@{/eregistrar/students/search}">
+        <input name="search" type="text" th:value="${searchParam}" >
+        <input type="submit" th:value="Search"/>
+    </form>
+    <h1>List of our Students</h1>
+    <div>
+        <p><a href="/eregistrar/students/new">Add New Student</a></p>
+    </div>
+    <table>
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Student Name</th>
+            <th>Gender</th>
+            <th>Student Number</th>
+            <th>Enrollment Date</th>
+            <th>Is International</th>
+            <th>CGPA</th>
+            <th>Is FPP</th>
+            <th colspan="2">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="student, counter : ${students}">
+            <th th:text="${counter.count}+${'.'}"></th>
+            <td th:if="${student.middleName.length == 0}">
+                <p>
+                    <span th:text="${student.firstName} + ${' '} + ${student.lastName}"></span>
+                </p>
+            </td>
+            <td th:if="${student.middleName.length != 0}">
+                <p>
+                    <span th:text="${student.firstName} + ${' '}+ ${student.middleName} + ${' '} + ${student.lastName}"></span>
+                </p>
+            </td>
+            <td th:text="${student.gender}"></td>
+            <td th:text="${student.studentNumber}"></td>
+            <td th:text="${student.enrollmentDate}"></td>
+            <td th:text="${student.isInternational}"></td>
+            <td th:text="${student.cgpa}"></td>
+            <td th:text="${student.fpp}? 'Yes': 'No'"></td>
+            <td><a th:href="@{'/eregistrar/students/edit/{studentId}'(studentId=${student.studentId})}">Edit</a></td>
+            <td><a th:href="@{'/eregistrar/students/delete/{studentId}'(studentId=${student.studentId})}">Delete</td>
+        </tr>
+        </tbody>
+    </table>
+</main>
+</body>
+</html>
